@@ -40,7 +40,7 @@ export default function Home() {
     <div
       className={`w-full min-h-dvh h-full px-25 py-5 text-white ${
         darkMode ? "bg-zinc-900" : "bg-gradient-to-r from-red-600 to-red-900"
-      } transition-discrete duration-700`}
+     } transition-discrete duration-700`}
     >
       <Header
         refresh={refresh}
