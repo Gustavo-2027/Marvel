@@ -11,13 +11,13 @@ export default function Header({
 }) {
   return (
     <header className="w-full h-10 flex justify-between items-center">
-      <Link to={"/"}>
+ 
         <img
           src={Logo}
           alt="Logo da marvel"
-          className="w-20 duration-500 transition-transform hover:scale-110 cursor-pointer"
+          className="w-20"
         />
-      </Link>
+  
 
       <form
         className="flex justify-center items-center"
