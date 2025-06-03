@@ -2,60 +2,92 @@ import { useEffect, useState } from "react";
 import { getCharacters } from "../Services";
 import Personagens from "../components/Personagens";
 import Header from "../components/Header";
-import Buttons from "../components/Button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Home() {
   const [characters, setCharacters] = useState([]);
-  const [numberRandom, setNumberRandom] = useState(
-    Math.floor(Math.random() * 1500)
-  );
-  const [limit, setLimit] = useState(20);
+  const [limit] = useState(20);
   const [darkMode, setDarkMode] = useState(true);
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
+
+  const fetchCharacters = () => {
+    getCharacters(offset, limit, search.trim() || undefined).then((res) => {
+      setCharacters(res);
+    });
+  };
 
   useEffect(() => {
-    getCharacters(numberRandom, limit).then((res) => {
-      setCharacters(res);
-    });
-  }, [numberRandom, limit]);
+    fetchCharacters();
+  }, [page, limit, search]);
 
-  function refresh() {
-    setNumberRandom(Math.floor(Math.random() * 1800));
-  }
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => !prev);
+  };
 
-  function color() {
-    setDarkMode(!darkMode);
-  }
-
-  function searchCharacter(e) {
+  const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (search.trim() === "") return;
-    console.log(search);
-    getCharacters(0, limit, search).then((res) => {
-      setCharacters(res);
-    });
-  }
+    if (search.trim() !== "") {
+      setPage(1); 
+    }
+  };
+
+  const handleRefresh = () => {
+    setSearch("");
+    setPage(1);
+  };
+
+  const PreviousPage = () => {
+    if (page > 1) {
+      setPage((prev) => prev - 1);
+    } else {
+      alert("Erro");
+    }
+  };
+
+  const NextPage = () => {
+    setPage((prev) => prev + 1);
+  };
 
   return (
     <div
-      className={`w-full min-h-dvh h-full px-25 py-5 text-white ${
+      className={`w-full min-h-dvh h-full px-6 py-5 text-white transition-all duration-700 ${
         darkMode ? "bg-zinc-900" : "bg-gradient-to-r from-red-600 to-red-900"
-     } transition-discrete duration-700`}
+      }`}
     >
       <Header
-        refresh={refresh}
-        color={color}
+        refresh={handleRefresh}
+        color={toggleDarkMode}
         search={search}
         setSearch={setSearch}
-        searchCharacter={searchCharacter}
+        searchCharacter={handleSearchSubmit}
+        setPages={setPage}
       />
 
       {characters.length > 0 ? (
         <Personagens characters={characters} darkMode={darkMode} />
       ) : (
-        <h1>Carregando...</h1>
+        <h1 className="text-center text-xl mt-10">Carregando...</h1>
       )}
-      <Buttons limit={limit} setLimit={setLimit} />
+
+      {search.trim() === "" && (
+        <section className="flex justify-center items-center gap-4 mt-6">
+          <button
+            onClick={PreviousPage}
+            className="hover:scale-110 transition-transform cursor-pointer"
+          >
+            <ChevronLeft />
+          </button>
+          <p className="text-lg">{page}</p>
+          <button
+            onClick={NextPage}
+            className="hover:scale-110 transition-transform cursor-pointer"
+          >
+            <ChevronRight />
+          </button>
+        </section>
+      )}
     </div>
   );
 }

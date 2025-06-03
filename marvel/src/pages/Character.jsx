@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getCharacterById } from "../Services";
 import Logo from "../assets/Marvel_Logo.svg.png";
 
 export default function Character() {
   const { id } = useParams();
+  const navigate = useNavigate()
   const [personagem, setPersonagem] = useState(null);
   console.log(personagem);
 
@@ -16,14 +17,17 @@ export default function Character() {
 
   return (
     <div className="bg-zinc-900 w-full min-h-dvh h-full px-25 py-5 text-white">
-      <header className="w-full flex justify-center items-center">
+      <header className="w-full flex justify-between items-center">
         <Link to={"/"}>
           <img
             src={Logo}
             alt="Logo da marvel"
-            className="w-25 duration-500 transition-transform hover:scale-120 cursor-pointer "
+            className="w-25 duration-500 transition-transform hover:scale-120 cursor-pointer"
           />
         </Link>
+        <button onClick={(() => navigate(-1))} className="p-2 bg-gradient-to-r from-red-600 to-red-900 rounded-xl cursor-pointer font-semibold transition-transform hover:scale-110">
+          Voltar
+        </button>
       </header>
 
       <main className="bg-gradient-to-r from-red-600 to-red-900 rounded-md py-15 px-10 my-10 flex gap-5">

@@ -33,7 +33,9 @@ export default function Header({
         <button type="submit">
           <Search className="w-5 cursor-pointer transition-transform hover:scale-115 hover:opacity-50" />
         </button>
-        <button className="px-2" onClick={() => setSearch("")}>
+        <button className="px-2" onClick={() => (
+          setSearch("")
+        )}>
           <BrushCleaning className="w-5 cursor-pointer transition-transform hover:scale-115 hover:opacity-50" />
         </button>
       </form>
@@ -41,7 +43,7 @@ export default function Header({
         <button onClick={color}>
           <Moon className="w-5 cursor-pointer transition-transform hover:scale-115" />
         </button>
-        <button onClick={refresh}>
+        <button onClick={(() => refresh())}>
           <RefreshCcw className="w-5 cursor-pointer transition-transform hover:scale-115" />
         </button>
       </section>
