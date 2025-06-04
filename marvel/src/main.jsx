@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import Home from './pages/Home'
 import Character from './pages/Character'
+import Error from './pages/ErrorPage'
 
 const router = createBrowserRouter([
       {
@@ -13,6 +14,9 @@ const router = createBrowserRouter([
       {
         path:"/character/:id",
         element: <Character/>
+      },
+      {
+        errorElement: <Error/>,
       }
 ])
 

@@ -6,11 +6,12 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Home() {
   const [characters, setCharacters] = useState([]);
-  const [limit] = useState(20);
+  const [limit, setLimit] = useState(20);
   const [darkMode, setDarkMode] = useState(true);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
+  const [order, setOrder] = useState("A-Z")
 
   const fetchCharacters = () => {
     getCharacters(offset, limit, search.trim() || undefined).then((res) => {
@@ -21,6 +22,17 @@ export default function Home() {
   useEffect(() => {
     fetchCharacters();
   }, [page, limit, search]);
+
+  const orderCharacter = (item) => {
+    return [...item].sort((a, b) => {
+      if(order == "A-Z") {
+        return a.name.localeCompare(b.name);
+    } else {
+      return b.name.localeCompare(a.name);
+    }
+      
+    })
+  }
 
   const toggleDarkMode = () => {
     setDarkMode((prev) => !prev);
@@ -36,6 +48,8 @@ export default function Home() {
   const handleRefresh = () => {
     setSearch("");
     setPage(1);
+    setLimit(20)
+    setOrder("A-Z")
   };
 
   const PreviousPage = () => {
@@ -63,10 +77,14 @@ export default function Home() {
         setSearch={setSearch}
         searchCharacter={handleSearchSubmit}
         setPages={setPage}
+        order={order}
+        setOrder={setOrder}
+        limit={limit}
+        setLimit={setLimit}
       />
 
       {characters.length > 0 ? (
-        <Personagens characters={characters} darkMode={darkMode} />
+        <Personagens characters={orderCharacter(characters)} darkMode={darkMode} />
       ) : (
         <h1 className="text-center text-xl mt-10">Carregando...</h1>
       )}
