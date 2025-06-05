@@ -1,25 +1,29 @@
-import { Link } from "react-router-dom";
 import Logo from "../assets/Marvel_Logo.svg.png";
 import { BrushCleaning, Moon, RefreshCcw, Search } from "lucide-react";
+import { useContext } from "react";
+import { ThemeContext } from "../contexts/ThemeContext";
+import { CharacterContext } from "../contexts/CharacterContext";
 
-export default function Header({
-  refresh,
-  color,
-  search,
-  setSearch,
-  searchCharacter,
-  order,
-  setOrder,
-  limit,
-  setLimit,
-}) {
+export default function Header() {
+  const { darkMode, setDarkMode } = useContext(ThemeContext);
+
+  const {
+    handleRefresh,
+    handleSearchSubmit,
+    search,
+    setSearch,
+    order,
+    setOrder,
+    limit,
+    setLimit,
+  } = useContext(CharacterContext);
   return (
     <header className="w-full h-10 flex justify-between items-center">
       <img src={Logo} alt="Logo da marvel" className="w-20" />
 
       <form
         className="flex justify-center items-center"
-        onSubmit={searchCharacter}
+        onSubmit={handleSearchSubmit}
       >
         <input
           type="text"
@@ -40,7 +44,11 @@ export default function Header({
           <select
             value={order}
             onChange={(e) => setOrder(e.target.value)}
-            className="bg-zinc-900 text-white flex rounded-md justify-center items-center"
+            className={`bg-zinc-900 text-white flex rounded-md justify-center items-center ${
+              darkMode
+                ? "bg-gradient-to-r from-red-600 to-red-900"
+                : "bg-zinc-900"
+            }`}
           >
             <optgroup label="Ordem:">
               <option value="A-Z">A-Z</option>
@@ -51,7 +59,11 @@ export default function Header({
           <select
             value={limit}
             onChange={(e) => setLimit(e.target.value)}
-            className="bg-zinc-900 text-white flex rounded-md ml-2"
+            className={`bg-zinc-900 text-white flex rounded-md ml-2 ${
+              darkMode
+                ? "bg-gradient-to-r from-red-600 to-red-900"
+                : "bg-zinc-900"
+            }`}
           >
             <optgroup label="N personagens:">
               <option value="10">10</option>
@@ -63,10 +75,10 @@ export default function Header({
           </select>
         </section>
 
-        <button onClick={color}>
+        <button onClick={(() => setDarkMode(!darkMode))}>
           <Moon className="w-5 cursor-pointer transition-transform hover:scale-115" />
         </button>
-        <button onClick={() => refresh()}>
+        <button onClick={() => handleRefresh()}>
           <RefreshCcw className="w-5 cursor-pointer transition-transform hover:scale-115" />
         </button>
       </section>

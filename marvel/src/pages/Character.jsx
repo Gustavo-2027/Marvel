@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCharacterById } from "../Services";
 import Logo from "../assets/Marvel_Logo.svg.png";
+import { ThemeContext } from "../contexts/ThemeContext";
+import { Moon } from "lucide-react";
 
 export default function Character() {
   const { id } = useParams();
@@ -15,20 +17,37 @@ export default function Character() {
 
   if (!personagem) return <h1 className="text-white p-10">Carregando...</h1>;
 
+  const { darkMode, setDarkMode } = useContext(ThemeContext);
+
   return (
-    <div className="bg-zinc-900 w-full min-h-dvh h-full px-25 py-5 text-white">
+    <div
+      className={`bg-zinc-900 w-full min-h-dvh h-full px-25 py-5 text-white ${
+        darkMode ? "bg-zinc-900" : "bg-gradient-to-r from-red-600 to-red-900"
+      }`}
+    >
       <header className="w-full flex justify-between items-center">
         <img src={Logo} alt="Logo da marvel" className="w-25" />
 
-        <button
-          onClick={() => navigate(-1)}
-          className="p-2 bg-red-600 rounded-xl cursor-pointer font-semibold transition-transform hover:scale-110"
-        >
-          Voltar
-        </button>
+        <section className="flex justify-center items-center gap-3">
+          <button onClick={(() => setDarkMode(!darkMode))}>
+            <Moon className="w-5 cursor-pointer transition-transform hover:scale-115" />
+          </button>
+          <button
+            onClick={() => navigate(-1)}
+            className={`p-2 rounded-xl cursor-pointer font-semibold transition-transform hover:scale-110 ${
+        darkMode ? "bg-red-600" : "bg-zinc-900"
+      }`}
+          >
+            Voltar
+          </button>
+        </section>
       </header>
 
-      <main className="bg-gradient-to-r from-red-600 to-red-900 rounded-md py-15 px-10 my-10 flex gap-5">
+      <main
+        className={`rounded-md py-15 px-10 my-10 flex gap-5 ${
+          darkMode ? "bg-gradient-to-r from-red-600 to-red-900" : "bg-zinc-900"
+        }`}
+      >
         <img
           src={`${personagem.thumbnail.path}.${personagem.thumbnail.extension}`}
           alt={personagem.description}

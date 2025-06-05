@@ -1,68 +1,26 @@
-import { useEffect, useState } from "react";
-import { getCharacters } from "../Services";
+import { useContext, useEffect } from "react";
 import Personagens from "../components/Personagens";
 import Header from "../components/Header";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ThemeContext } from "../contexts/ThemeContext";
+import { CharacterContext } from "../contexts/CharacterContext";
 
 export default function Home() {
-  const [characters, setCharacters] = useState([]);
-  const [limit, setLimit] = useState(20);
-  const [darkMode, setDarkMode] = useState(true);
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const offset = (page - 1) * limit;
-  const [order, setOrder] = useState("A-Z")
+  const { characters, orderCharacter, search, PreviousPage, NextPage, page } =
+    useContext(CharacterContext);
 
-  const fetchCharacters = () => {
-    getCharacters(offset, limit, search.trim() || undefined).then((res) => {
-      setCharacters(res);
-    });
-  };
+  const { darkMode, setDarkMode } = useContext(ThemeContext);
 
   useEffect(() => {
-    fetchCharacters();
-  }, [page, limit, search]);
-
-  const orderCharacter = (item) => {
-    return [...item].sort((a, b) => {
-      if(order == "A-Z") {
-        return a.name.localeCompare(b.name);
-    } else {
-      return b.name.localeCompare(a.name);
+    const savedTheme = localStorage.getItem("darkMode");
+    if (savedTheme != null) {
+      setDarkMode(savedTheme === "true");
     }
-      
-    })
-  }
+  }, []);
 
-  const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
-  };
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (search.trim() !== "") {
-      setPage(1); 
-    }
-  };
-
-  const handleRefresh = () => {
-    setSearch("");
-    setPage(1);
-    setLimit(20)
-    setOrder("A-Z")
-  };
-
-  const PreviousPage = () => {
-    if (page > 1) {
-      setPage((prev) => prev - 1);
-    } else {
-      alert("Erro");
-    }
-  };
-
-  const NextPage = () => {
-    setPage((prev) => prev + 1);
-  };
+  useEffect(() => {
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
 
   return (
     <div
@@ -70,21 +28,10 @@ export default function Home() {
         darkMode ? "bg-zinc-900" : "bg-gradient-to-r from-red-600 to-red-900"
       }`}
     >
-      <Header
-        refresh={handleRefresh}
-        color={toggleDarkMode}
-        search={search}
-        setSearch={setSearch}
-        searchCharacter={handleSearchSubmit}
-        setPages={setPage}
-        order={order}
-        setOrder={setOrder}
-        limit={limit}
-        setLimit={setLimit}
-      />
+      <Header />
 
       {characters.length > 0 ? (
-        <Personagens characters={orderCharacter(characters)} darkMode={darkMode} />
+        <Personagens characters={orderCharacter(characters)} />
       ) : (
         <h1 className="text-center text-xl mt-10">Carregando...</h1>
       )}
