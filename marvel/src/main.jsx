@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import Home from "./pages/Home";
 import Character from "./pages/Character";
-import Error from "./pages/ErrorPage";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { CharacterProvider } from "./contexts/CharacterContext";
 

@@ -45,9 +45,7 @@ export default function Header() {
             value={order}
             onChange={(e) => setOrder(e.target.value)}
             className={`bg-zinc-900 text-white flex rounded-md justify-center items-center ${
-              darkMode
-                ? "bg-gradient-to-r from-red-600 to-red-900"
-                : "bg-zinc-900"
+              darkMode ? "bg-red-800" : "bg-zinc-900"
             }`}
           >
             <optgroup label="Ordem:">
@@ -60,9 +58,7 @@ export default function Header() {
             value={limit}
             onChange={(e) => setLimit(e.target.value)}
             className={`bg-zinc-900 text-white flex rounded-md ml-2 ${
-              darkMode
-                ? "bg-gradient-to-r from-red-600 to-red-900"
-                : "bg-zinc-900"
+              darkMode ? "bg-red-700" : "bg-zinc-900"
             }`}
           >
             <optgroup label="N personagens:">
@@ -75,7 +71,7 @@ export default function Header() {
           </select>
         </section>
 
-        <button onClick={(() => setDarkMode(!darkMode))}>
+        <button onClick={() => setDarkMode(prev => !prev)}>
           <Moon className="w-5 cursor-pointer transition-transform hover:scale-115" />
         </button>
         <button onClick={() => handleRefresh()}>

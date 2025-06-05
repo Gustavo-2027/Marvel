@@ -9,18 +9,7 @@ export default function Home() {
   const { characters, orderCharacter, search, PreviousPage, NextPage, page } =
     useContext(CharacterContext);
 
-  const { darkMode, setDarkMode } = useContext(ThemeContext);
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("darkMode");
-    if (savedTheme != null) {
-      setDarkMode(savedTheme === "true");
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("darkMode", darkMode);
-  }, [darkMode]);
+  const { darkMode } = useContext(ThemeContext);
 
   return (
     <div
