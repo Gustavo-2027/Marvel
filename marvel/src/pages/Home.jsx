@@ -3,6 +3,7 @@ import Personagens from "../components/Personagens";
 import Header from "../components/Header";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CharacterContext } from "../contexts/CharacterContext";
+import Loading from "../components/Loading";
 
 export default function Home() {
   const { characters, orderCharacter, search, PreviousPage, NextPage, page } =
@@ -15,7 +16,7 @@ export default function Home() {
       {characters.length > 0 ? (
         <Personagens characters={orderCharacter(characters)} />
       ) : (
-        <h1 className="text-center text-xl mt-10">Carregando...</h1>
+        <Loading/>
       )}
 
       {search.trim() === "" && (
