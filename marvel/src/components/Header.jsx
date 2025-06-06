@@ -1,11 +1,12 @@
-import Logo from "../assets/Marvel_Logo.svg.png";
 import { BrushCleaning, Moon, RefreshCcw, Search } from "lucide-react";
 import { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { CharacterContext } from "../contexts/CharacterContext";
+import LogoMarvel from "./LogoMarvel";
+import ButtonTheme from "./ButtonTheme";
 
 export default function Header() {
-  const { darkMode, setDarkMode } = useContext(ThemeContext);
+  const { darkMode } = useContext(ThemeContext);
 
   const {
     handleRefresh,
@@ -19,8 +20,7 @@ export default function Header() {
   } = useContext(CharacterContext);
   return (
     <header className="w-full h-10 flex justify-between items-center">
-      <img src={Logo} alt="Logo da marvel" className="w-20" />
-
+      <LogoMarvel />
       <form
         className="flex justify-center items-center"
         onSubmit={handleSearchSubmit}
@@ -70,10 +70,7 @@ export default function Header() {
             </optgroup>
           </select>
         </section>
-
-        <button onClick={() => setDarkMode(prev => !prev)}>
-          <Moon className="w-5 cursor-pointer transition-transform hover:scale-115" />
-        </button>
+        <ButtonTheme />
         <button onClick={() => handleRefresh()}>
           <RefreshCcw className="w-5 cursor-pointer transition-transform hover:scale-115" />
         </button>

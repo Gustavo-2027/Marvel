@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCharacterById } from "../Services";
-import Logo from "../assets/Marvel_Logo.svg.png";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { Moon } from "lucide-react";
+import LogoMarvel from "../components/LogoMarvel";
+import ButtonTheme from "../components/ButtonTheme";
 
 export default function Character() {
   const { id } = useParams();
@@ -17,7 +18,7 @@ export default function Character() {
 
   if (!personagem) return <h1 className="text-white p-10">Carregando...</h1>;
 
-  const { darkMode, setDarkMode } = useContext(ThemeContext);
+  const { darkMode } = useContext(ThemeContext);
 
   return (
     <div
@@ -26,17 +27,15 @@ export default function Character() {
       }`}
     >
       <header className="w-full flex justify-between items-center">
-        <img src={Logo} alt="Logo da marvel" className="w-25" />
+        <LogoMarvel />
 
         <section className="flex justify-center items-center gap-3">
-          <button onClick={(() => setDarkMode(!darkMode))}>
-            <Moon className="w-5 cursor-pointer transition-transform hover:scale-115" />
-          </button>
+          <ButtonTheme />
           <button
             onClick={() => navigate(-1)}
             className={`p-2 rounded-xl cursor-pointer font-semibold transition-transform hover:scale-110 ${
-        darkMode ? "bg-red-600" : "bg-zinc-900"
-      }`}
+              darkMode ? "bg-red-600" : "bg-zinc-900"
+            }`}
           >
             Voltar
           </button>

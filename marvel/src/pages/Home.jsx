@@ -1,22 +1,15 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import Personagens from "../components/Personagens";
 import Header from "../components/Header";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { ThemeContext } from "../contexts/ThemeContext";
 import { CharacterContext } from "../contexts/CharacterContext";
 
 export default function Home() {
   const { characters, orderCharacter, search, PreviousPage, NextPage, page } =
     useContext(CharacterContext);
 
-  const { darkMode } = useContext(ThemeContext);
-
   return (
-    <div
-      className={`w-full min-h-dvh h-full px-6 py-5 text-white transition-all duration-700 ${
-        darkMode ? "bg-zinc-900" : "bg-gradient-to-r from-red-600 to-red-900"
-      }`}
-    >
+    <div>
       <Header />
 
       {characters.length > 0 ? (
