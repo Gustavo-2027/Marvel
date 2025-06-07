@@ -2,14 +2,14 @@ import miniSpider from "../assets/mini.png";
 
 export default function Loading() {
   return (
-    <div className="w-full flex justify-center items-center flex-col my-10">
-      <section className="flex flex-col justify-center items-center hover:scale-110 transition-transform duration-700">
+    <div className="max-w-full h-full">
+      <section className="flex flex-col justify-center items-center transition-transform duration-700 h-220 animate-pulse ">
         <img
           src={miniSpider}
           alt="Imagem do Homem aranha"
-          className="w-150 rounded-[50%] shadow-2xl shadow-orange-600"
+          className="w-100 rounded-[50%] shadow-2xl shadow-orange-900"
         />
-        <h1 className="text-5xl text-orange-600 font-bold py-2 text-shadow-2xs text-shadow-white">
+        <h1 className="text-5xl text-orange-900 font-bold py-2">
           Carrregando...
         </h1>
       </section>

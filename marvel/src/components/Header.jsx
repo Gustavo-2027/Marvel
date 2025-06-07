@@ -19,7 +19,7 @@ export default function Header() {
     setLimit,
   } = useContext(CharacterContext);
   return (
-    <header className="w-full h-10 flex justify-between items-center">
+    <header className="max-w-full h-10 flex justify-between items-center">
       <LogoMarvel />
       <form
         className="flex justify-center items-center"
