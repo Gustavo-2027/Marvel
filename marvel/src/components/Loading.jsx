@@ -1,18 +1,11 @@
-import miniSpider from "../assets/mini.png";
+import { useThemeContext } from "../hooks/useThemeContext";
 
 export default function Loading() {
+  const {darkMode} = useThemeContext()
+
   return (
-    <div className="max-w-full h-full">
-      <section className="flex flex-col justify-center items-center transition-transform duration-700 h-220 animate-pulse ">
-        <img
-          src={miniSpider}
-          alt="Imagem do Homem aranha"
-          className="w-100 rounded-[50%] shadow-2xl shadow-orange-900"
-        />
-        <h1 className="text-5xl text-orange-900 font-bold py-2">
-          Carrregando...
-        </h1>
-      </section>
+    <div className="flex justify-center items-center h-280">
+      <div className={`animate-spin rounded-full h-35 w-32 border-t-5 border-b-4 hover:scale-110 duration-700 ${darkMode ? "border-red-600" : "border-zinc-900"}`}></div>
     </div>
   );
 }

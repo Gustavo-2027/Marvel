@@ -5,7 +5,7 @@ import Loading from "../components/Loading";
 import { useCharacterContext } from "../hooks/useCharacterContext";
 
 export default function Home() {
-  const { characters, orderCharacter, search, PreviousPage, NextPage, page } = useCharacterContext();
+  const { characters, search, PreviousPage, NextPage, page } = useCharacterContext();
 
   return (
     <div>
@@ -13,7 +13,7 @@ export default function Home() {
 
       {characters.length > 0 ? (
         <div>
-          <Personagens characters={orderCharacter(characters)} />
+          <Personagens characters={characters} />
           {search.trim() === "" && (
             <section className="flex justify-center items-center gap-4 mt-6">
               <button

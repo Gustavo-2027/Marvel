@@ -1,7 +1,6 @@
 import { useContext } from "react"
 import { CharacterContext } from "../contexts/CharacterContext"
 
-
 export function useCharacterContext() {
     const context = useContext(CharacterContext)
 

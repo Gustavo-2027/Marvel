@@ -13,7 +13,7 @@ export function ThemeProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("darkMode", darkMode);
+    localStorage.setItem("darkMode", darkMode.toString());
   }, [darkMode]);
 
   return (

@@ -12,24 +12,14 @@ export function CharacterProvider({ children }) {
   const [order, setOrder] = useState("A-Z");
 
   const fetchCharacters = () => {
-    getCharacters(offset, limit, search.trim() || undefined).then((res) => {
+    getCharacters(offset, limit, search.trim() || undefined, order).then((res) => {
       setCharacters(res);
     });
   };
 
   useEffect(() => {
     fetchCharacters();
-  }, [page, limit, search]);
-
-  const orderCharacter = (item) => {
-    return [...item].sort((a, b) => {
-      if (order == "A-Z") {
-        return a.name.localeCompare(b.name);
-      } else {
-        return b.name.localeCompare(a.name);
-      }
-    });
-  };
+  }, [page, limit, search, order]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -57,5 +47,5 @@ export function CharacterProvider({ children }) {
     setPage((prev) => prev + 1);
   };
 
-  return <CharacterContext.Provider value={{characters, orderCharacter, handleRefresh, handleSearchSubmit, PreviousPage, NextPage, page, search, setSearch, order, setOrder, limit, setLimit}}>{children}</CharacterContext.Provider>;
+  return <CharacterContext.Provider value={{characters, handleRefresh, handleSearchSubmit, PreviousPage, NextPage, page, search, setSearch, order, setOrder, limit, setLimit}}>{children}</CharacterContext.Provider>;
 }
