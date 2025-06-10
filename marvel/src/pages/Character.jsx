@@ -1,24 +1,21 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCharacterById } from "../Services";
-import { ThemeContext } from "../contexts/ThemeContext";
-import { Moon } from "lucide-react";
 import LogoMarvel from "../components/LogoMarvel";
 import ButtonTheme from "../components/ButtonTheme";
+import { useThemeContext } from "../hooks/useThemeContext";
 
 export default function Character() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [personagem, setPersonagem] = useState(null);
-  console.log(personagem);
+  const { darkMode } = useThemeContext()
 
   useEffect(() => {
     getCharacterById(id).then(setPersonagem);
   }, [id]);
 
   if (!personagem) return <h1 className="text-white p-10">Carregando...</h1>;
-
-  const { darkMode } = useContext(ThemeContext);
 
   return (
     <div
@@ -50,7 +47,7 @@ export default function Character() {
         <img
           src={`${personagem.thumbnail.path}.${personagem.thumbnail.extension}`}
           alt={personagem.description}
-          className="w-100 rounded-md transition-transform hover:scale-110 shadow-2xl shadow-black duration-500"
+          className="w-100 rounded-md transition-transform hover:scale-105 shadow-2xl shadow-black duration-500"
         />
         <section className="flex flex-col gap-5 px-5">
           <h1 className="text-3xl font-semibold text-center">

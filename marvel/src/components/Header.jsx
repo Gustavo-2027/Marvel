@@ -1,12 +1,12 @@
 import { BrushCleaning, Moon, RefreshCcw, Search } from "lucide-react";
 import { useContext } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
 import { CharacterContext } from "../contexts/CharacterContext";
 import LogoMarvel from "./LogoMarvel";
 import ButtonTheme from "./ButtonTheme";
+import { useThemeContext } from "../hooks/useThemeContext";
 
 export default function Header() {
-  const { darkMode } = useContext(ThemeContext);
+  const { darkMode } = useThemeContext();
 
   const {
     handleRefresh,
@@ -18,6 +18,7 @@ export default function Header() {
     limit,
     setLimit,
   } = useContext(CharacterContext);
+
   return (
     <header className="max-w-full h-10 flex justify-between items-center">
       <LogoMarvel />

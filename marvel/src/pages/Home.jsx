@@ -1,13 +1,11 @@
-import { useContext } from "react";
 import Personagens from "../components/Personagens";
 import Header from "../components/Header";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { CharacterContext } from "../contexts/CharacterContext";
 import Loading from "../components/Loading";
+import { useCharacterContext } from "../hooks/useCharacterContext";
 
 export default function Home() {
-  const { characters, orderCharacter, search, PreviousPage, NextPage, page } =
-    useContext(CharacterContext);
+  const { characters, orderCharacter, search, PreviousPage, NextPage, page } = useCharacterContext();
 
   return (
     <div>

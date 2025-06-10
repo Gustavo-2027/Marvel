@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { useThemeContext } from "../hooks/useThemeContext";
 
 export default function Personagens({ characters }) {
-  const { darkMode } = useContext(ThemeContext);
+  const { darkMode } = useThemeContext();
 
   return (
     <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 py-10 w-full">
