@@ -10,13 +10,13 @@ export default function ErrorPage() {
         darkMode ? "bg-zinc-900" : "bg-gradient-to-r from-red-600 to-red-900"
       }`}
     >
-      <h1 className="text-4xl font-black text-red-500 pt-40">ERRO 404</h1>
+      <h1 className="text-4xl font-black text-red-600 pt-40">ERRO 404</h1>
 
-      <section className="flex justify-center items-center flex-col">
-        <h1 className="text-3xl font-semibold text-center">
+      <section className="flex flex-col">
+        <h1 className="text-2xl font-semibold text-center">
           E quem disse que isso é problema meu?
         </h1>
-        <img src={Tobey} alt="Tobey sarcastico" className="w-160" />
+        <img src={Tobey} alt="Tobey sarcastico" className="w-150" />
       </section>
     </div>
   );
